@@ -1,0 +1,11 @@
+id,title,artist,feeling,danceability,acousticness,energy,instrumentalness,liveness,valence,loudness,speechiness
+5N5fp1lYSORdZbWanACki9,Bonita Applebum,A Tribe Called Quest,Acoustic,0.874,0.0697,0.581,0.0239,0.416,0.663,-7.942,0.168
+7GSRH3L0HAM3StkAkYVamC,Tell It Like It Is,Aaron Neville,Acoustic,0.61,0.449,0.376,2.18e-06,0.198,0.565,-9.194,0.0287
+3JuwVgIYYl7tHeEGrEQqbg,Prince Charming,Adam And The Ants,Acoustic,0.544,0.179,0.667,3.94e-06,0.142,0.665,-9.526,0.0398
+6gQUbFwwdYXlKdmqRoWKJe,Dude Looks Like A Lady,Aerosmith,Acoustic,0.54,0.435,0.982,3.37e-05,0.0457,0.91,-2.962,0.0458
+3unsLiH5FXmaDWtT5Imolu,Fallin,Alicia Keys,Acoustic,0.652,0.263,0.609,0.00101,0.233,0.482,-7.519,0.037
+656zzqQjzIPQWcnH1ghHal,Jesus Hands,American Music Club,Acoustic,0.317,0.107,0.289,0.0,0.331,0.268,-13.587,0.0326
+3axPhcbhVDOA9MnhkUrFcE,Boogie Woogie Bugle Boy,Andrews Sisters,Acoustic,0.64,0.881,0.479,0.000171,0.0973,0.79,-11.55,0.467
+5zhHaQJXiD8jFVwhpPColg,Im Crying,Animals,Acoustic,0.553,0.0186,0.557,0.0051,0.353,0.804,-9.834,0.0322
+1Df1rxgMob1qQudexDEKuu,Caught Up In The Rapture,Anita Baker,Acoustic,0.593,0.412,0.506,3.99e-06,0.048,0.378,-9.708,0.0263
+3eE238SJrIlY9LE94pboJP,Wave,Antonio Carlos Jobim,Acoustic,0.116,0.986,0.179,0.918,0.107,0.0526,-19.414,0.035

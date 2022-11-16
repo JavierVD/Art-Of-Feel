@@ -1,0 +1,86 @@
+@font-face {
+  font-family: 'DigitalGeometricBold';
+  src: url('/fonts/digital-geometric-bold.ttf');
+}
+.main-container {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.hide-text{
+  font-family: 'DigitalGeometricBold';
+  font-size: 40px;
+  letter-spacing: 5px;
+  color: white;
+  text-align: center;
+  animation: glow 1s ease-in-out infinite alternate;
+
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 30px white;
+  }
+  to {
+    text-shadow: 0 0 50px white, 0 0 10px #4dbbc7;
+  }
+}
+.appear-text:hover + .hide-text{
+  display: block;
+}
+.fit-to-div{
+  width: 270px;
+  height: 350px;
+  border-radius: 10px;
+}
+.zoom{
+  transition: transform .4s;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-radius: 10px;
+}
+
+.zoom:hover {
+  transform: scale(1.1);
+}
+
+.fadeOut {
+  animation: fadeOut ease 1s;
+  -webkit-animation: fadeOut ease 1s;
+  -moz-animation: fadeOut ease 1s;
+  -o-animation: fadeOut ease 1s;
+  -ms-animation: fadeOut ease 1s;
+}
+@keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn ease 8s;
+  -webkit-animation: fadeIn ease 8s;
+  -moz-animation: fadeIn ease 8s;
+  -o-animation: fadeIn ease 8s;
+  -ms-animation: fadeIn ease 8s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+.center-main{
+margin: 0px;
+
+}
