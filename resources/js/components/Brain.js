@@ -161,40 +161,91 @@ export default function Brain(){
   const reader = new FileReader();
   const [shape, setShape] = useState(false);
   const [string, setString] =useState([]);
-  const [playlist, setPlaylist] = useState("");
+  const controller = new AbortController();
+  const {signal} = controller;
+  const htmlSwal = "<link rel='stylesheet' href='/css/loading.css'><div><div id='divC'>Completed: <b id='a'></b>%\nFound songs: <b id='b'></b>\nLost songs: <b id='c'></b></div><br><br><br><br><div ><ul id='load'><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></div></div>";
   const openFileforCSV =()=>{
 
   }
-   const loadDataFromSpotify = () =>{
-
-    console.log(file.name)
-    fetch('http://127.0.0.1:5000/spotifySongsData',{
-      method: 'POST',
-      body: JSON.stringify({url: file.name}),
-      headers: {
-        'Access-Control-Allow-Origin': true,
-        //'origin':'x-requested-with',
-        //'Access-Control-Allow-Headers': 'POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin',
-        'Content-Type': 'application/json',
-      },
-      
-      })
-      .then((response) =>{ 
-      const reader = response.body.getReader();
-
-      function go() {
-        reader.read().then(function(result) {
-          if (!result.done) {
-            var porcentaje = JSON.parse(
-              new TextDecoder("utf-8").decode(result.value)
-            );       
-            go ();
-          }
-        })
+  const uploadMongo =()=>{
+    MySwal.fire({
+      title: 'Uploading to MongoDB',
+      html: '<div><b>Uploading to MongoDB</b></div>',
+      showConfirmButton: true,
+      confirmButtonText: 'Go to train',
+      confirmButtonColor:'206078',
+      background: '#000',
+      didOpen:() => {
+        console.log(Swal.getHtmlContainer());
+        const b = Swal.getHtmlContainer().querySelector('b');
+        var counters = 0, counterms = 0;
+        fetch('http://127.0.0.1:5000/uploadToMongo',{
+          method: 'GET',
+          }).then((response) =>{ 
+            if(response){
+              b.textContent="Upload Completed!"
+            }
+      })},
+    }).then((result)=>{
+      if(result.isConfirmed){
+        setcssClass('fadeOut'); 
+        setTimeout(()=>{navigate('/HomePanel')}, 1000);
       }
+    })
+  }
+   const loadDataFromSpotify = () =>{
+    MySwal.fire({
+      title: 'Creating CSV file',
+      html: htmlSwal,
+      showCancelButton: true,
+      background: '#000',
+      didOpen:() => {
+        console.log(Swal.getHtmlContainer());
+        const b = Swal.getHtmlContainer().querySelector('#a');
+        const csongs = Swal.getHtmlContainer().querySelector('#b');
+        const cmsongs = Swal.getHtmlContainer().querySelector('#c');
+        const loadBar = Swal.getHtmlContainer().querySelector('#load');
+        var counters = 0, counterms = 0;
+        fetch('http://127.0.0.1:5000/spotifySongsData',{
+          signal,
+          method: 'POST',
+          body: JSON.stringify({url: file.name}),
+          headers: {
+            'Access-Control-Allow-Origin': true,
+            'Content-Type': 'application/json',
+          }}).then((response) =>{ 
+          const reader = response.body.getReader();
+          function go() {
+            reader.read().then(function(result) {
+              if (!result.done) {
+                const resVal = JSON.parse(new TextDecoder("utf-8").decode(result.value))
+                b.textContent = resVal['percent'];     
+                resVal['status'] == 200 ? counters+=1 : counterms+=1;
+                csongs.textContent = counters;
+                cmsongs.textContent = counterms;
+                go ();
+              }else{
 
-      go ();
-      });
+              }
+            })
+          }
+    
+          go ();
+          });
+      },
+      allowOutsideClick: () => {
+        controller.abort();
+        Swal.showValidationMessage(
+          'Cancelled 🐧'
+        );
+        !Swal.isLoading();
+      }
+    }).then((result)=>{
+      if(result.isConfirmed){
+        uploadMongo();
+      }
+    })
+    
   }
     const preTraining = () =>{
       try {

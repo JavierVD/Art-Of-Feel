@@ -3,6 +3,7 @@ import json
 from flask_cors import CORS
 
 import spotiConn
+import mongoConn
 
 app = Flask(__name__) 
 CORS(app)
@@ -12,6 +13,10 @@ def getSongsForTrain():
     data = request.get_json()
     data = data['url'] 
     return Response((spotiConn.getTrackDataFromCSV(data)))
+
+@app.route('/uploadToMongo', methods = ['GET']) 
+def uploadToMongo():
+    return mongoConn.uploadToMongo()
 
 @app.route('/spotifyPlaylist', methods = ['POST']) 
 def getPlaylistForAnalyze():

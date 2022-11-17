@@ -23,19 +23,19 @@ def getTrackDataFromCSV(varpath):
     data = pd.read_csv(varpath,sep=";")    
     serie = pd.DataFrame()
     counter = 0
+    limit = 10
     print("okey")
     for idx, rows in data.iterrows():
-        if counter < 10:
+        if counter < limit:
             counter=counter+1
             trackid = spotifyObject.search(q='artist:' + rows['artist'] + ' track:' + rows['title'], type='track', limit=1)
             if trackid['tracks']['total'] > 0:
                 analysis = spotifyObject.audio_features(trackid['tracks']['items'][0]['id'])
                 serie = pd.concat([serie,pd.DataFrame({'id':trackid['tracks']['items'][0]['id'],'title':rows['title'],'artist':rows['artist'],'feeling':rows['feeling'],'danceability':analysis[0]['danceability'],'acousticness':analysis[0]['acousticness'],'energy':analysis[0]['energy'],'instrumentalness':analysis[0]['instrumentalness'],'liveness':analysis[0]['liveness'],'valence':analysis[0]['valence'],'loudness':analysis[0]['loudness'],'speechiness':analysis[0]['speechiness']},index=[0])])
-                yield json.dumps({'status':'200','percent':str(counter*100/10)})
-                print(str(idx*100/10))
+                yield json.dumps({'status':200,'percent':str(counter*100/limit)})
             else:
-                yield json.dumps({'status':'404', 'percent':str(counter*100/10)})
-            
+                yield json.dumps({'status':404, 'percent':str(counter*100/limit)})
+            print(str(counter*100/limit),'%')
         else:
             break
     serie.to_csv('complete_data.csv',index=False,encoding='utf-8')

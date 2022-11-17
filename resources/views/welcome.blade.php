@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Art of feel</title>
     <!-- Styles -->
-    <link rel="icon" href="{{ URL::asset('/images/image2vector.svg') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ URL::asset('/images/splashscreen.png') }}" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/app.css')  }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
