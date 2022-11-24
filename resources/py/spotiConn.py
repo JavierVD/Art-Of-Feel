@@ -23,7 +23,7 @@ def getTrackDataFromCSV(varpath):
     data = pd.read_csv(varpath,sep=";")    
     serie = pd.DataFrame()
     counter = 0
-    limit = 10
+    limit = 8800
     print("okey")
     for idx, rows in data.iterrows():
         if counter < limit:
@@ -44,6 +44,6 @@ def getPlaylistTracks(url):
     searchResults = spotifyObject.playlist_tracks(url, None)
     print(searchResults)
     return searchResults
-getTrackDataFromCSV("sexo")
+
     
     

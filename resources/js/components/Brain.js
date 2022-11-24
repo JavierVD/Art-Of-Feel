@@ -170,7 +170,7 @@ export default function Brain(){
   const uploadMongo =()=>{
     MySwal.fire({
       title: 'Uploading to MongoDB',
-      html: '<div><b>Uploading to MongoDB</b></div>',
+      html: "<link rel='stylesheet' href='/css/loading.css'><div><div id='divC'>Completed: <b id='a'></b></div><br><br><br><br><div ><ul id='load'><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></div></div>",
       showConfirmButton: true,
       confirmButtonText: 'Go to train',
       confirmButtonColor:'206078',
@@ -178,13 +178,25 @@ export default function Brain(){
       didOpen:() => {
         console.log(Swal.getHtmlContainer());
         const b = Swal.getHtmlContainer().querySelector('b');
-        var counters = 0, counterms = 0;
+        var counters = 0;
         fetch('http://127.0.0.1:5000/uploadToMongo',{
           method: 'GET',
           }).then((response) =>{ 
-            if(response){
-              b.textContent="Upload Completed!"
+            const reader = response.body.getReader();
+            function go() {
+              reader.read().then(function(result) {
+                if (!result.done) {
+                  
+                  const resVal = JSON.parse(new TextDecoder("utf-8").decode(result.value))
+                  console.log(resVal['result']);
+                  b.textContent = resVal['result'];     
+                  go ();
+                }else{
+                  b.textContent="Upload Completed!"
+                }
+              })
             }
+            go ();
       })},
     }).then((result)=>{
       if(result.isConfirmed){

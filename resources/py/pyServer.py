@@ -16,7 +16,7 @@ def getSongsForTrain():
 
 @app.route('/uploadToMongo', methods = ['GET']) 
 def uploadToMongo():
-    return mongoConn.uploadToMongo()
+    return Response(mongoConn.uploadToMongo())
 
 @app.route('/spotifyPlaylist', methods = ['POST']) 
 def getPlaylistForAnalyze():
